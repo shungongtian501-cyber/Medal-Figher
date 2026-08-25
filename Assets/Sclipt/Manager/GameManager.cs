@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text haveCoinText;
     [SerializeField] private Text Winstext;
 
+    [SerializeField] private GameObject Infomationtext;
     public static GameManager Instance;
 
     public bool IsOpeningFloor { get; private set; }
@@ -156,6 +158,16 @@ public class GameManager : MonoBehaviour
     public void Finish()
     {
         Debug.Log("Finish");
+        Infomationtext.SetActive(true);
         //Application.Quit();
+    }
+    public void Cancel()
+    {
+        Infomationtext.SetActive(false);
+    }
+    public void Result()
+    {
+        SceneManager.LoadScene("ResultScene");
+        Infomationtext.SetActive(false);
     }
 }
