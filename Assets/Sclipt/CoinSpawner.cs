@@ -2,17 +2,44 @@ using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField]GameObject CoinPrefab;
+    [SerializeField] private GameObject CoinPrefab;
+
     public bool CanSpawn = true;
-    void Update()
+
+    private int _bairitu = 1;
+
+    private void Update()
     {
-        //Debug.Log(GameManager.Instance);
-        if (Input.GetKeyDown(KeyCode.Space) && CanSpawn == true)
+        if (!Input.GetKeyDown(KeyCode.Space))
+            return;
+
+        // まだコインを出せないなら終了
+        if (!CanSpawn)
+            return;
+
+        // メダルがない
+        if (GameManager.Instance.playerCoin <= 0)
         {
-            Instantiate(CoinPrefab);
-            CanSpawn = false;
-            GameManager.Instance.playerCoin -= 1;
-            GameManager.Instance.UpdateUI();
+            GameManager.Instance.Result();
+            return;
         }
+
+        // コイン生成
+        Instantiate(CoinPrefab);
+
+        // ★生成した瞬間にロック
+        CanSpawn = false;
+
+        GameManager.Instance.playerCoin -= _bairitu;
+        GameManager.Instance.UpdateUI();
+
+        Debug.Log("コイン生成");
+    }
+
+    public void EnableSpawn()
+    {
+        CanSpawn = true;
+
+        Debug.Log("次のコインを生成可能");
     }
 }

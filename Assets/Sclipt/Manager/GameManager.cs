@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Infomationtext;
     public static GameManager Instance;
 
+    int _bairituCountor = 1; 
     public bool IsOpeningFloor { get; private set; }
 
     private void Awake()
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
 
         // 次のゲーム開始
         IsOpeningFloor = false;
+        _bairituCountor += 1;
     }
 
     // ビンゴ報酬追加
@@ -139,11 +141,11 @@ public class GameManager : MonoBehaviour
 
         switch (reward)
         {
-            case 1: SetLight(0); break;
-            case 2: SetLight(1); break;
-            case 3: SetLight(2); break;
-            case 5: SetLight(3); break;
-            case 10: SetLight(4); break;
+            case 4: SetLight(0); break;
+            case 6: SetLight(1); break;
+            case 10: SetLight(2); break;
+            case 15: SetLight(3); break;
+            case 20: SetLight(4); break;
             case 30: SetLight(5); break;
             case 50: SetLight(6); break;
             case 99: SetLight(7); break;

@@ -3,7 +3,8 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     private CoinSpawner spawner;
-    [SerializeField] AudioSource _SE;
+
+    [SerializeField] private AudioSource _SE;
 
     private void Start()
     {
@@ -14,15 +15,16 @@ public class Coin : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            spawner.CanSpawn = true;
+            spawner.EnableSpawn();
         }
 
-        if(collision.gameObject.CompareTag("Pin"))
+        if (collision.gameObject.CompareTag("Pin"))
         {
-            Debug.Log("Pinに当たった！");
 
-            _SE.Play();
+            if (_SE != null)
+            {
+                _SE.Play();
+            }
         }
     }
-    
 }
