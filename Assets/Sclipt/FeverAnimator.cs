@@ -7,7 +7,6 @@ using UnityEngine.UI; // コルーチンに必要
 public class FeverAnimator : MonoBehaviour
 {
     private Animator _anim;
-    private HoleBase[] _allHoles;
 
     // rnd == 1 が成立したかどうかを記憶する変数
     private bool _isFeverActive = false;
@@ -15,20 +14,6 @@ public class FeverAnimator : MonoBehaviour
     void Start()
     {
         _anim = gameObject.GetComponent<Animator>();
-        // 【修正】ゲーム内にあるすべての HoleBase（を継承したHole）を自動で探して集める
-        _allHoles = FindObjectsByType<HoleBase>(FindObjectsSortMode.None);
-
-        // 見つかったすべての穴に対して、自分自身（this）を登録する
-        foreach (HoleBase hole in _allHoles)
-        {
-            if (hole != null)
-            {
-                hole.SetFeverAnimator(this);
-            }
-        }
-
-        // 確認用ログ（7つの穴が見つかれば「見つかった数: 7」と表示されます）
-        Debug.Log($"見つかった穴の数: {_allHoles.Length}");
 
     }
 

@@ -2,44 +2,53 @@ using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject CoinPrefab;
+    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private CameraFollow cameraFollow;
 
     public bool CanSpawn = true;
 
-    private int _bairitu = 1;
 
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Space))
             return;
 
-        // まだコインを出せないなら終了
         if (!CanSpawn)
             return;
 
-        // メダルがない
-        if (GameManager.Instance.playerCoin <= 0)
+        if (GameManager.Instance == null)
         {
-            GameManager.Instance.Result();
+            Debug.LogError("GameManager.Instance がありません！");
             return;
         }
 
+        // 一球入魂
+        if (!GameManager.Instance.UseCoin())
+            return;
+
         // コイン生成
-        Instantiate(CoinPrefab);
+        GameObject coin = Instantiate(coinPrefab);
 
-        // ★生成した瞬間にロック
+        // カメラに生成したコインを教える
+        if (cameraFollow != null)
+        {
+            cameraFollow.SetTarget(coin.transform);
+        }
+
+        // 二度目の生成を禁止
         CanSpawn = false;
-
-        GameManager.Instance.playerCoin -= _bairitu;
-        GameManager.Instance.UpdateUI();
 
         Debug.Log("コイン生成");
     }
 
+
     public void EnableSpawn()
     {
+        if (!GameManager.Instance.IsPlaying)
+            return;
+
         CanSpawn = true;
 
-        Debug.Log("次のコインを生成可能");
+        Debug.Log("コインを生成可能");
     }
 }
