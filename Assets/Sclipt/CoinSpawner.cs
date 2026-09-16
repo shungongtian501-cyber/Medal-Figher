@@ -22,9 +22,6 @@ public class CoinSpawner : MonoBehaviour
             return;
         }
 
-        // 一球入魂
-        if (!GameManager.Instance.UseCoin())
-            return;
 
         // コイン生成
         GameObject coin = Instantiate(coinPrefab);

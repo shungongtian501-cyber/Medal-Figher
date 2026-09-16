@@ -21,14 +21,6 @@ public class DeadZone : MonoBehaviour
         if (!GameManager.Instance.IsPlaying)
             return;
 
-        // 3球使い切った場合
-        if (GameManager.Instance.RemainingCoinCount <= 0)
-        {
-            Debug.Log("3球すべて失敗！GAME OVER");
-
-            GameManager.Instance.GameOver();
-            return;
-        }
 
         // まだ残りの球がある場合
         CoinSpawner spawner = FindAnyObjectByType<CoinSpawner>();
