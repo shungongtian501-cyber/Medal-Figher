@@ -5,14 +5,21 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private CameraFollow cameraFollow;
 
-    public bool CanSpawn = true;
+    [Header("ボール出現位置")]
+    [SerializeField] private Transform spawnPoint;
 
+    public bool CanSpawn = true;
 
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Space))
             return;
 
+        SpawnCoin();
+    }
+
+    public void SpawnCoin()
+    {
         if (!CanSpawn)
             return;
 
@@ -22,22 +29,30 @@ public class CoinSpawner : MonoBehaviour
             return;
         }
 
+        if (!GameManager.Instance.IsPlaying)
+            return;
 
-        // コイン生成
-        GameObject coin = Instantiate(coinPrefab);
+        if (spawnPoint == null)
+        {
+            Debug.LogError("Spawn Pointが設定されていません！");
+            return;
+        }
 
-        // カメラに生成したコインを教える
+        GameObject coin = Instantiate(
+            coinPrefab,
+            spawnPoint.position,
+            Quaternion.identity
+        );
+
         if (cameraFollow != null)
         {
             cameraFollow.SetTarget(coin.transform);
         }
 
-        // 二度目の生成を禁止
         CanSpawn = false;
 
-        Debug.Log("コイン生成");
+        Debug.Log("ボール生成");
     }
-
 
     public void EnableSpawn()
     {
@@ -46,6 +61,6 @@ public class CoinSpawner : MonoBehaviour
 
         CanSpawn = true;
 
-        Debug.Log("コインを生成可能");
+        Debug.Log("ボールを生成可能");
     }
 }
