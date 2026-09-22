@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Prefab/Scenes/GameScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scene/TitleScene.unity
+    guid: 83906cc79d45aa54faf6493fa47effe5
+  - enabled: 1
     path: Assets/Scene/GameScene.unity
     guid: 222a1aaf11985b745a7f3a3310ad2c73
   - enabled: 1
     path: Assets/Scene/FeverScene.unity
     guid: d6524bdb7f510be4aaded5f928819167
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/ResultScene.unity
     guid: a6d8c171807b62d4d96037bed5281e56
   m_configObjects:
